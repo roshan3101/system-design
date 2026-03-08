@@ -1,0 +1,3 @@
+Hello, World!
+This is a simple document editor.
+[Image: image.png]	End of document.
