@@ -33,3 +33,28 @@ Carol joined the room.
 ## Why Mediator
 - Removes tight coupling between users; adding filters/logging in the mediator does not change `User`.
 - Simplifies many-to-many communication into one-to-many via the mediator hub.
+
+## UML
+```mermaid
+classDiagram
+    class ChatMediator {
+        <<interface>>
+        +broadcast(from, msg)
+        +addUser(User)
+    }
+    class ChatRoom {
+        -users : vector<User*>
+        +broadcast(from, msg)
+        +addUser(User)
+    }
+    class User {
+        -name
+        -mediator : ChatMediator
+        +send(msg)
+        +receive(from, msg)
+    }
+
+    ChatMediator <|.. ChatRoom
+    User --> ChatMediator : uses
+    ChatRoom o--> User : manages
+```

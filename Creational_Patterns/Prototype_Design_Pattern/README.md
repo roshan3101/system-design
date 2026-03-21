@@ -25,3 +25,22 @@ Base Mage (lvl 10) with items: Staff, Robe, Health Potion
 - Fast creation of similar objects with minor tweaks (no repetitive initialization).
 - Ensures clones start from a consistent base configuration.
 - Deep copy keeps clones independent (mutating one does not affect others).
+
+## UML
+```mermaid
+classDiagram
+    class Prototype {
+        <<interface>>
+        +clone() : Prototype
+    }
+    class CharacterLoadout {
+        -name
+        -items
+        -level
+        +clone() : Prototype
+    }
+    class Client
+
+    Prototype <|.. CharacterLoadout
+    Client --> Prototype : clones
+```

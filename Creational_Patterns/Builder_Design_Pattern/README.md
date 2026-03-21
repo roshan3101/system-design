@@ -70,3 +70,33 @@ version: 1.0
 - All variants keep object creation readable by chaining calls instead of long constructors.
 - The director centralizes canned request recipes; the step builder prevents missing required fields by design.
 - For production use, add validation (e.g., require method in step builder) and consider `std::unordered_map` if header ordering is irrelevant.
+
+## UML
+```mermaid
+classDiagram
+    class Director as HTTPRequestDirector {
+        +makeGet(url)
+        +makePost(url, body)
+    }
+    class Builder {
+        <<interface>>
+        +url(...)
+        +method(...)
+        +header(...)
+        +query(...)
+        +body(...)
+        +build() : HTTPRequest
+    }
+    class ConcreteBuilder as HTTPRequestBuilder
+    class HTTPRequest {
+        -url
+        -method
+        -headers
+        -queryParams
+        -body
+    }
+
+    Builder <|.. HTTPRequestBuilder
+    HTTPRequestDirector --> Builder : orchestrates
+    HTTPRequestBuilder --> HTTPRequest : builds
+```

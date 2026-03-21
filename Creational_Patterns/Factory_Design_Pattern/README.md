@@ -65,3 +65,46 @@ Use case:
 - `Simple Factory`: one factory class, one product family, conditional creation.
 - `Factory Method`: abstract creator + concrete creators decide product variant.
 - `Abstract Factory`: factory for multiple related product families.
+
+## UML
+```mermaid
+classDiagram
+    class Product {
+        <<interface>>
+    }
+    class ConcreteProductA as BasicBurger
+    class ConcreteProductB as StandardBurger
+    class ConcreteProductC as DeluxeBurger
+
+    class Creator {
+        <<abstract>>
+        +createBurger(type) : Product
+    }
+    class ConcreteCreatorA as SinghBurgerFactory
+    class ConcreteCreatorB as KingBurgerFactory
+
+    class AbstractFactory as MealFactory {
+        <<interface>>
+        +createBurger(type) : Burger
+        +createGarlicBread(type) : GarlicBread
+    }
+    class ConcreteMealFactoryA as SinghMealFactory
+    class ConcreteMealFactoryB as KingMealFactory
+    class GarlicBread
+    class GarlicBreadVariant as WheatGarlicBread
+
+    Product <|.. BasicBurger
+    Product <|.. StandardBurger
+    Product <|.. DeluxeBurger
+    Creator <|.. SinghBurgerFactory
+    Creator <|.. KingBurgerFactory
+    SinghBurgerFactory --> Product
+    KingBurgerFactory --> Product
+
+    AbstractFactory <|.. SinghMealFactory
+    AbstractFactory <|.. KingMealFactory
+    SinghMealFactory --> Product
+    SinghMealFactory --> GarlicBread
+    KingMealFactory --> Product
+    KingMealFactory --> GarlicBreadVariant
+```

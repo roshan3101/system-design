@@ -20,3 +20,17 @@ Requests divisible by 100 print the notes dispensed; others surface an error.
 - Support currency-specific minimum units (e.g., ₹50) by inserting more handlers.
 - Add logging/auth checks before dispensing to combine with Proxy or Decorator examples.
 
+## UML
+```mermaid
+classDiagram
+    class CashHandler {
+        -denomination : int
+        -next : CashHandler*
+        +setNext(CashHandler)
+        +dispense(amount)
+    }
+    class Client
+
+    CashHandler --> CashHandler : next
+    Client --> CashHandler : starts chain
+```

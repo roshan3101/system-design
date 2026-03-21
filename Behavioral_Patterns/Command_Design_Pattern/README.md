@@ -33,3 +33,28 @@ Invalid Press
 - Replace raw pointers with `std::unique_ptr` for safer ownership.
 - Allow dynamic button count via constructor parameter.
 - Add a command history stack to support multi-step undo/redo.
+
+## UML
+```mermaid
+classDiagram
+    class ICommand {
+        <<interface>>
+        +execute()
+        +undo()
+    }
+    class LightCommand
+    class FanCommand
+    class RemoteControl {
+        -slots : vector~ICommand*~
+        +pressOn(idx)
+        +pressUndo(idx)
+    }
+    class Light
+    class Fan
+
+    ICommand <|.. LightCommand
+    ICommand <|.. FanCommand
+    LightCommand --> Light : calls
+    FanCommand --> Fan : calls
+    RemoteControl --> ICommand : invokes
+```

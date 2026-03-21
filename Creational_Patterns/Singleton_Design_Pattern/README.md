@@ -24,3 +24,18 @@ In [main.cpp](C:\Users\hp\Documents\GitHub\system_design\Singleton_Design_Patter
 1. Simple and safe implementation (Meyers Singleton).
 2. No manual memory management for the singleton instance.
 3. No explicit mutex handling needed for initialization in modern C++.
+
+## UML
+```mermaid
+classDiagram
+    class Singleton {
+        -Singleton()
+        -Singleton(const Singleton&)
+        -operator=(const Singleton&)
+        +getInstance() : Singleton
+        +doWork()
+    }
+    class Client
+
+    Client --> Singleton : uses
+```

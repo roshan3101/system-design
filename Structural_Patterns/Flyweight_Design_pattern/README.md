@@ -25,3 +25,28 @@ Asteriod of type Type B with color Green and weight 58 is at position (441,12)
 ## Notes
 - Intrinsic state is shared; only the context varies per asteroid, illustrating classic flyweight savings.
 - The factory never deletes cached flyweights; add cleanup or smart pointers if long-lived reuse is not acceptable.
+
+## UML
+```mermaid
+classDiagram
+    class Flyweight as Asteroid {
+        -type
+        -color
+        -weight
+        +display(x, y)
+    }
+    class FlyweightFactory as AsteroidFlyweightFactory {
+        -cache : map
+        +getFlyweight(type, color, weight) : Asteroid
+    }
+    class Context as AsteroidExtrensicContext {
+        -x
+        -y
+    }
+    class Client
+
+    FlyweightFactory --> Flyweight : creates / shares
+    Client --> FlyweightFactory : requests
+    Client --> Context : owns
+    Flyweight --> Context : uses extrinsic data
+```

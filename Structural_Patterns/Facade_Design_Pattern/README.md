@@ -37,3 +37,30 @@ Theater lights on
 ## Notes
 - Facade keeps client code minimal and readable.
 - Subsystems stay decoupled and reusable outside the facade if needed.
+
+## UML
+```mermaid
+classDiagram
+    class HomeTheaterFacade {
+        -amp : Amplifier
+        -dvd : DvdPlayer
+        -proj : Projector
+        -lights : TheaterLights
+        -screen : Screen
+        +watchMovie(movie)
+        +endMovie()
+    }
+    class Amplifier
+    class DvdPlayer
+    class Projector
+    class TheaterLights
+    class Screen
+    class Client
+
+    Client --> HomeTheaterFacade : uses
+    HomeTheaterFacade --> Amplifier
+    HomeTheaterFacade --> DvdPlayer
+    HomeTheaterFacade --> Projector
+    HomeTheaterFacade --> TheaterLights
+    HomeTheaterFacade --> Screen
+```

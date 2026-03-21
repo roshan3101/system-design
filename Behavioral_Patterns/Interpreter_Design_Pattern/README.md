@@ -25,3 +25,29 @@ Result: 9
 ## Why Interpreter
 - Encapsulates grammar rules in classes, enabling new operations (e.g., multiply/divide) by adding new expression nodes.
 - Separates parsing/tokenizing from evaluation via the `Context` and AST.
+
+## UML
+```mermaid
+classDiagram
+    class Context {
+        -vars
+        +set(name, value)
+        +get(name)
+    }
+    class Expression {
+        <<interface>>
+        +interpret(Context)
+    }
+    class NumberExpression
+    class VariableExpression
+    class AddExpression
+    class SubtractExpression
+
+    Expression <|.. NumberExpression
+    Expression <|.. VariableExpression
+    Expression <|.. AddExpression
+    Expression <|.. SubtractExpression
+    AddExpression --> Expression : left/right
+    SubtractExpression --> Expression : left/right
+    Expression --> Context : reads
+```

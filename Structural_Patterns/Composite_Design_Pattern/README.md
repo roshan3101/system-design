@@ -21,3 +21,29 @@ Expected output (abridged): a flat `ls` of root, `ls` of docs, a recursive tree 
 - Add behaviors (rename, delete) by extending the interface and updating both `File` and `Folder`.
 - Swap recursion depth/indentation rules inside `openAll` to change visualization without touching client code.
 
+## UML
+```mermaid
+classDiagram
+    class IComponentItem {
+        <<interface>>
+        +ls()
+        +openAll()
+        +getSize() : int
+        +cd(name) : IComponentItem*
+        +getName() : string
+        +isFolder() : bool
+    }
+    class File
+    class Folder {
+        -children : vector~IComponentItem*~
+        +add(item)
+        +ls()
+        +openAll()
+        +getSize()
+        +cd(name)
+    }
+
+    IComponentItem <|.. File
+    IComponentItem <|.. Folder
+    Folder o--> IComponentItem : contains
+```

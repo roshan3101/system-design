@@ -26,3 +26,27 @@ Height up Mario with height
 GUn Power Mario with height with gunpower
 Star POwer Mario with height with gunpower with Star Power
 ```
+
+## UML
+```mermaid
+classDiagram
+    class Character {
+        <<interface>>
+        +getAbilities() : string
+    }
+    class Mario
+    class CharacterDecorator {
+        -wrapped : Character*
+        +getAbilities()
+    }
+    class Heightup
+    class Gunpower
+    class Starpower
+
+    Character <|.. Mario
+    Character <|.. CharacterDecorator
+    CharacterDecorator <|.. Heightup
+    CharacterDecorator <|.. Gunpower
+    CharacterDecorator <|.. Starpower
+    CharacterDecorator o--> Character : wraps
+```

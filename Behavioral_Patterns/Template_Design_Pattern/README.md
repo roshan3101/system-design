@@ -20,3 +20,21 @@ You’ll see both pipelines execute the same high-level algorithm with different
 - Inject logging/metrics by overriding `save()` or inserting hooks.
 - Add optional steps (e.g., hyperparameter search) via additional virtual hooks with no-op defaults.
 
+## UML
+```mermaid
+classDiagram
+    class MLTrainingTemplate {
+        +run()
+        #loadData()
+        #preprocess()
+        #buildModel()
+        #train()
+        #evaluate()
+        #save()
+    }
+    class ImageClassifierTraining
+    class TabularRegressorTraining
+
+    MLTrainingTemplate <|.. ImageClassifierTraining
+    MLTrainingTemplate <|.. TabularRegressorTraining
+```

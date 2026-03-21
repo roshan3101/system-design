@@ -26,3 +26,30 @@ Invalid media. avi format not supported
 ## Notes
 - Uses `std::unique_ptr` in the adapter to avoid manual deletes.
 - Extendable: add a new format by implementing `AdvancedMediaPlayer` and branching in `MediaAdapter`.
+
+## UML
+```mermaid
+classDiagram
+    class Client as AudioPlayer
+    class MediaPlayer {
+        <<interface>>
+        +play(type, file)
+    }
+    class MediaAdapter {
+        -AdvancedMediaPlayer advPlayer
+        +play(type, file)
+    }
+    class AdvancedMediaPlayer {
+        <<interface>>
+        +playVlc(file)
+        +playMp4(file)
+    }
+    class VlcPlayer
+    class Mp4Player
+
+    MediaPlayer <|.. AudioPlayer
+    MediaPlayer <|.. MediaAdapter
+    MediaAdapter --> AdvancedMediaPlayer : delegates
+    AdvancedMediaPlayer <|.. VlcPlayer
+    AdvancedMediaPlayer <|.. Mp4Player
+```

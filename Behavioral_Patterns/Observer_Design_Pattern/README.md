@@ -40,3 +40,25 @@ In `main.cpp`:
 - One-to-many dependency between channel and subscribers
 - Dynamic subscription management (`add/remove`)
 - Automatic broadcast on state change (`uploadVideo -> notify -> update`)
+
+## UML
+```mermaid
+classDiagram
+    class Subject as Channel {
+        -subscribers : vector~IObserver*~
+        +add(IObserver)
+        +remove(IObserver)
+        +notify()
+        +uploadVideo(title)
+    }
+    class IObserver {
+        <<interface>>
+        +update(channelName, videoTitle)
+    }
+    class MobileSubscriber
+    class EmailSubscriber
+
+    IObserver <|.. MobileSubscriber
+    IObserver <|.. EmailSubscriber
+    Channel o--> IObserver : notifies
+```

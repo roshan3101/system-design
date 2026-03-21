@@ -28,3 +28,23 @@ g++ -std=c++17 -Wall -Wextra -o null_logger main.cpp
 ## Why Null Object
 - Removes repetitive `if (logger)` checks.
 - Safe default object avoids `nullptr` crashes while keeping polymorphism.
+
+## UML
+```mermaid
+classDiagram
+    class Logger {
+        <<interface>>
+        +info(msg)
+        +error(msg)
+    }
+    class ConsoleLogger
+    class NullLogger
+    class PaymentService {
+        -logger : Logger
+        +process(amount)
+    }
+
+    Logger <|.. ConsoleLogger
+    Logger <|.. NullLogger
+    PaymentService --> Logger : depends on
+```

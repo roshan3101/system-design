@@ -33,3 +33,32 @@ Sold out; cannot select Water.
 - Encapsulates state-specific rules in classes instead of `if/else` checks.
 - Transitions are explicit (`setState`) and local to each state's logic.
 - Adding a new state (e.g., `MaintenanceState`) does not change existing states.
+
+## UML
+```mermaid
+classDiagram
+    class VendingMachine {
+        -State state
+        -int stock
+        +insertCoin()
+        +selectProduct(product)
+        +dispense()
+        +setState(State)
+    }
+    class State {
+        <<interface>>
+        +insertCoin(VendingMachine)
+        +selectProduct(VendingMachine, product)
+        +dispense(VendingMachine)
+    }
+    class NoCoinState
+    class HasCoinState
+    class DispensingState
+    class SoldOutState
+
+    VendingMachine --> State : delegates to
+    State <|.. NoCoinState
+    State <|.. HasCoinState
+    State <|.. DispensingState
+    State <|.. SoldOutState
+```

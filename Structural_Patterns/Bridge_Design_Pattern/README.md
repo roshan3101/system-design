@@ -37,3 +37,34 @@ Bolero Stopped
 ## Notes
 - Extend by adding a new `Engine` subtype or a new `Vehicle` subclass; `VehicleFactory` is the only place needing an update to wire combinations.
 - Uses raw pointers for clarity; swap to `std::unique_ptr` to avoid manual deletes in production code.
+
+## UML
+```mermaid
+classDiagram
+    class Engine {
+        <<interface>>
+        +start()
+        +stop()
+    }
+    class PetrolEngine
+    class DieselEngine
+    class CNGEngine
+
+    class Vehicle {
+        <<abstract>>
+        -engine : Engine*
+        +start()
+        +stop()
+    }
+    class SUV
+    class Sedan
+    class Bolero
+
+    Engine <|.. PetrolEngine
+    Engine <|.. DieselEngine
+    Engine <|.. CNGEngine
+    Vehicle o--> Engine : has
+    Vehicle <|.. SUV
+    Vehicle <|.. Sedan
+    Vehicle <|.. Bolero
+```

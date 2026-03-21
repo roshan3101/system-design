@@ -20,3 +20,24 @@ You’ll see the first display trigger a heavy load; the second reuse the cached
 - Access control or request throttling layers that sit in front of real services.
 - Remote proxies that hide network calls behind a local interface.
 
+## UML
+```mermaid
+classDiagram
+    class Image {
+        <<interface>>
+        +display()
+    }
+    class RealImage {
+        -filename
+        +display()
+    }
+    class ProxyImage {
+        -filename
+        -real : RealImage*
+        +display()
+    }
+
+    Image <|.. RealImage
+    Image <|.. ProxyImage
+    ProxyImage --> RealImage : lazy creates
+```

@@ -30,3 +30,26 @@ DB: balance:1=120 user:1=Alice
 ## Why Memento
 - Captures state before risky operations and restores on failure without exposing internal representation.
 - Caretaker manages lifecycle of snapshots; originator focuses on state logic.
+
+## UML
+```mermaid
+classDiagram
+    class Originator as Database {
+        -state : map
+        +save() : Memento
+        +restore(Memento)
+    }
+    class Memento {
+        -stateSnapshot
+    }
+    class Caretaker as TransactionManager {
+        -backup : Memento
+        +begin()
+        +commit()
+        +rollback()
+    }
+
+    Database --> Memento : creates
+    TransactionManager --> Memento : stores
+    TransactionManager --> Database : controls
+```

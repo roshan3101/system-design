@@ -44,3 +44,46 @@ This implementation models robot abilities as independent strategies:
 ## Quick extension example
 To add a new behavior, create another class implementing one of the interfaces and inject it while creating the robot.  
 Example: add `SilentFly : public Flyable` and pass `new SilentFly()` to the `Robot` constructor.
+
+## UML
+```mermaid
+classDiagram
+    class Talkable {
+        <<interface>>
+        +talk()
+    }
+    class Walkable {
+        <<interface>>
+        +walk()
+    }
+    class Flyable {
+        <<interface>>
+        +fly()
+    }
+    class NormalTalk
+    class NoTalk
+    class NormalWalk
+    class NoWalk
+    class NormalFly
+    class NoFly
+    class Robot {
+        -Talkable* talkStrategy
+        -Walkable* walkStrategy
+        -Flyable* flyStrategy
+        +talk()
+        +walk()
+        +fly()
+    }
+    class CompositionRobot
+
+    Talkable <|.. NormalTalk
+    Talkable <|.. NoTalk
+    Walkable <|.. NormalWalk
+    Walkable <|.. NoWalk
+    Flyable <|.. NormalFly
+    Flyable <|.. NoFly
+    Robot o--> Talkable
+    Robot o--> Walkable
+    Robot o--> Flyable
+    Robot <|-- CompositionRobot
+```

@@ -25,3 +25,34 @@ Binary Tree: 1 2 3
 - Accessors (`getNext`, `getLeft`, `getRight`) keep nodes encapsulated while allowing iterators to navigate.
 - The tree iterator uses a stack to avoid recursion; order is root-left-right (pre-order).
 - Swap raw pointers for `std::unique_ptr` and return smart-pointer-aware iterators if you want automatic memory management.
+
+## UML
+```mermaid
+classDiagram
+    class Iterator~T~ {
+        <<interface>>
+        +hasNext() : bool
+        +next() : T
+    }
+    class Iterable~T~ {
+        <<interface>>
+        +createIterator() : Iterator~T~
+    }
+    class LinkedList~T~ {
+        -head : Node*
+        +createIterator()
+    }
+    class LinkedListIterator~T~
+    class BinaryTree~T~ {
+        -root : Node*
+        +createIterator()
+    }
+    class BinaryTreeIterator~T~
+
+    Iterator~T~ <|.. LinkedListIterator~T~
+    Iterator~T~ <|.. BinaryTreeIterator~T~
+    Iterable~T~ <|.. LinkedList~T~
+    Iterable~T~ <|.. BinaryTree~T~
+    LinkedList~T~ --> LinkedListIterator~T~ : creates
+    BinaryTree~T~ --> BinaryTreeIterator~T~ : creates
+```
