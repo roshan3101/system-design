@@ -9,6 +9,7 @@ Patterns that encapsulate algorithms, communication, or state-related behavior:
 - Null Object (logger that does nothing)
 - Observer (publish/subscribe notifications)
 - State (vending machine)
+- Interpreter (mini arithmetic expression evaluator)
 - Strategy (runtime-pluggable behaviors)
 - Template Method (algorithm skeleton with hooks)
 - Visitor (document reader with visitors)
